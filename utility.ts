@@ -107,9 +107,9 @@ export function getGradeArr(str: string, student: Student): Array < Grade > {
     } else {
 
         // Subject absent case
-        let abaStr = str.match(/\d+\sABA/gi);
-        if (abaStr) {
-            let abaArr = abaStr.join(' ').split(' ');
+        let abaArr = marksStr.match(/\d+\sABA/gi);
+        if (abaArr) {
+            abaArr = abaArr.join(' ').split(' ');
             abaArr.forEach(el => {
                 addAbstSubject(el);
 

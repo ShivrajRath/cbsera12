@@ -58,7 +58,7 @@ export class Subject {
         if (this.gradeObj[grade]) {
             ++this.gradeObj[grade];
         } else {
-            this.gradeObj[grade] = 0;
+            this.gradeObj[grade] = 1;
         }
     }
 

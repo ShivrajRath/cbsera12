@@ -25,6 +25,7 @@ let $textInput = ( < HTMLInputElement > document.getElementById('text-input'));
  */
 $elAnalyze.addEventListener('click', function () {
     try {
+        collection.clear();
         let textAreaContent = utility.remNewLine($textInput.value);
         let resultStrArr = utility.resultStringSplit(textAreaContent);
         extractDataModels(resultStrArr);

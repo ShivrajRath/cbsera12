@@ -285,9 +285,9 @@ define("utility", ["require", "exports", "Constant"], function (require, exports
             });
         }
         else {
-            var abaStr = str.match(/\d+\sABA/gi);
-            if (abaStr) {
-                var abaArr = abaStr.join(' ').split(' ');
+            var abaArr = marksStr.match(/\d+\sABA/gi);
+            if (abaArr) {
+                abaArr = abaArr.join(' ').split(' ');
                 abaArr.forEach(function (el) {
                     addAbstSubject(el);
                     marksArr.splice(marksArr.indexOf(el), 1);
@@ -341,7 +341,7 @@ define("Subject", ["require", "exports", "Constant"], function (require, exports
                 ++this.gradeObj[grade];
             }
             else {
-                this.gradeObj[grade] = 0;
+                this.gradeObj[grade] = 1;
             }
         };
         Subject.prototype.incrementMarkRange = function (marks) {
@@ -415,6 +415,7 @@ define("app", ["require", "exports", "utility", "Collection"], function (require
     var $textInput = document.getElementById('text-input');
     $elAnalyze.addEventListener('click', function () {
         try {
+            collection.clear();
             var textAreaContent = utility.remNewLine($textInput.value);
             var resultStrArr = utility.resultStringSplit(textAreaContent);
             extractDataModels(resultStrArr);
