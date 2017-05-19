@@ -1,5 +1,6 @@
 import {
-    Constant
+    Constant,
+    SubjectNameConstant
 } from 'Constant';
 /**
  * Subject Class
@@ -15,7 +16,7 @@ export class Subject {
     r60to74: number = 0;
     r75to89: number = 0;
     r90to100: number = 0;
-    gradeObj: object = {};
+    gradeObj: any = {};
 
     /**
      * Pushes the subject to the collection
@@ -23,6 +24,7 @@ export class Subject {
      */
     constructor(code: number) {
         this.code = code;
+        this.name = ( < any > SubjectNameConstant)[code];
     }
 
     /**
@@ -48,11 +50,17 @@ export class Subject {
         }
     }
 
-    // incrementGradeCount(grade: string){
-    //     if(this.gradeObj[grade]){
-    //         ++this.gradeObj[grade];
-    //     }
-    // }
+    /**
+     * Increments the count of a particular grade for a subject
+     * @param grade Grade string
+     */
+    incrementGradeCount(grade: string) {
+        if (this.gradeObj[grade]) {
+            ++this.gradeObj[grade];
+        } else {
+            this.gradeObj[grade] = 0;
+        }
+    }
 
     /**
      * Sets the marks into proper range

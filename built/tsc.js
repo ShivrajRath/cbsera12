@@ -7,7 +7,195 @@ define("Constant", ["require", "exports"], function (require, exports) {
         FAIL: 'FAIL',
         ABST: 'ABST',
         NA: 'NA',
-        PASS_MARK: 32
+        PASS_MARK: 32,
+    };
+    exports.SubjectNameConstant = {
+        101: "FUNCTIONAL ENGLISH",
+        1: "ENGLISH ELECTIVE",
+        2: "HINDI ELECTIVE",
+        3: "URDU ELECTIVE",
+        104: "PUNJABI",
+        105: "BENGALI",
+        106: "TAMIL",
+        107: "TELUGU",
+        108: "SINDHI",
+        109: "MARATHI",
+        110: "GUJARATI",
+        111: "MANIPURI",
+        112: "MALAYALAM",
+        113: "ODIA",
+        114: "ASSAMESE",
+        115: "KANNADA",
+        116: "ARABIC",
+        117: "TIBETAN",
+        118: "FRENCH",
+        119: "PORTUGUESE",
+        120: "GERMAN",
+        121: "RUSSIAN",
+        22: "SANSKRIT ELECTIVE",
+        123: "PERSIAN",
+        124: "NEPALI",
+        125: "LIMBOO",
+        126: "LEPCHA",
+        27: "HISTORY",
+        28: "POLITICAL SCIENCE",
+        29: "GEOGRAPHY",
+        30: "ECONOMICS",
+        31: "MUSIC CARNATIC (VOCAL)",
+        32: "MUSIC CARNATIC (INSTRUMENT MELODIC)",
+        33: "MUSIC CARNATIC (INSTRUMENT PERCUSSION)",
+        34: "MUSIC HINDUSTANI (VOCAL)",
+        35: "MUSIC HINDUSTANI (INSTRUMENT MELODIC)",
+        36: "MUSIC HINDUSTANI (INSTRUMENT PERCUSSION)",
+        37: "PSYCHOLOGY",
+        39: "SOCIOLOGY",
+        40: "PHILOSOPHY",
+        41: "MATHEMATICS",
+        42: "PHYSICS",
+        43: "CHEMISTRY",
+        44: "BIOLOGY",
+        45: "BIOTECHNOLOGY",
+        46: "ENGINEERING GRPHICS",
+        48: "PHYSICAL EDUCATION",
+        49: "PAINTING",
+        50: "GRAPHICS",
+        51: "SCULPTURE",
+        52: "APPLIED ART/COMMERCIAL ART",
+        53: "FASHION STUDIES",
+        54: "BUSINESS STUDIES",
+        55: "ACCOUNTANCY",
+        56: "DANCE-KATHAK",
+        57: "DANCE-BHARATNATYAM",
+        58: "DANCE-KUCHIPUDI",
+        59: "DANCE-ODISSI",
+        60: "DANCE-MANIPURI",
+        61: "DANCE-KATHAKALI",
+        62: "DANCE-MOHINIYATTAM",
+        64: "HOME SCIENCE",
+        65: "INFORMATICS PRACTICE",
+        66: "ENTREPRENEURSHIP",
+        67: "MULTIMEDIA & WEB TECHNOLOGY",
+        68: "AGRICULTURE",
+        69: "CREATIVE WRITING & TRANSLATION STUDIES",
+        70: "HERITAGE CRAFTS",
+        71: "GRAPHIC DESIGN",
+        72: "MASS MEDIA STUDIES",
+        73: "KNOWLEDGE TRADITIONS AND PRACTICES OF INDIA",
+        74: "LEGAL STUDIES",
+        75: "HUMAN RIGHTS AND GENDER STUDIES",
+        76: "N.C.C. (NATIONAL CADET CORPS)",
+        78: "THEATRE STUDIES",
+        83: "COMPUTER SCIENCE",
+        192: "BODO",
+        193: "TANGKHUL",
+        194: "JAPANESE",
+        195: "BHUTIA",
+        196: "SPANISH",
+        197: "KASHMIRI",
+        198: "MIZO",
+        199: "BHASA MELAYU",
+        301: "ENGLISH CORE",
+        302: "HINDI CORE",
+        303: "URDU CORE",
+        322: "SANSKRIT CORE",
+        604: "OFFICE PROCEDURE & PRACTICE",
+        605: "SECRETARIAL PRACTICE & ACCOUNTING",
+        606: "OFFICE COMMUNICATION",
+        607: "TYPOGRAPHY & COMPUTER APPLICATION (ENGLISH)",
+        608: "SHORTHAND ENGLISH",
+        609: "TYPOGRAPHY & COMPUTER APPLICATION (HINDI)",
+        610: "SHORTHAND HINDI",
+        611: "FINANCIAL ACCOUNTING",
+        612: "ELEMENT COST ACCOUNTANCY &AUDITING",
+        613: "MARKETING",
+        614: "SALESMANSHIP",
+        615: "CONSUMER BEHAVIOUR & PROTECTION",
+        617: "STOREKEEPING",
+        618: "STORE ACCOUNTING",
+        619: "CASH MANAGEMENT & HOUSE KEEPING",
+        620: "LENDING OPERATIONS",
+        621: "MANAGEMENT OF BANK OFFICE",
+        622: "ENGINEERING SCIENCE",
+        623: "ELECTRIC MACHINES",
+        624: "ELECTRICAL APPLICANCES",
+        625: "APPLIED PHYSICS",
+        626: "MECHANICAL ENGINEERING",
+        627: "AUTO ENGINEERING",
+        628: "AUTOSHOP REPAIRING & PRACTICE",
+        629: "CIVIL ENGINEERING",
+        630: "FABRICATION TECHNOLOGY-II",
+        631: "FABRICATION TECHNOLOGY-III",
+        632: "AIR CONDITIONING & REFRIGERATION – III",
+        633: "AIR CONDITIONING & REFRIGERATION – IV",
+        634: "ELECTRONIC DEVICES & CIRCUITS",
+        635: "RADIO ENGINEERING & AUDIO SYSTEM",
+        636: "TV & VIDEO SYSTEMS",
+        637: "ELECTRICAL ENGINEERING",
+        639: "MILK & MILK PRODUCTS",
+        640: "MILK PRODUCT TRANSPORT & MILK CO-OPERATIVES",
+        641: "DAIRY PLANT INSTRUMENTATION",
+        642: "VEGETABLE CULTURE",
+        643: "FLORICULTURE",
+        644: "POST HARVESTING TECHNOLOGY & PRESERVATION",
+        654: "BEAUTY THERAPY & HAIR DESIGNING –II",
+        655: "COSMETIC CHEMISTRY",
+        656: "YOGA ANATOMY & PHYSIOLOGY",
+        657: "BIOLOGY-OPTHALMIC",
+        658: "OPTICS",
+        659: "OPHTHALMIC TECHNOLOGY",
+        660: "LABORATORY MEDICINE (CLINICAL PATH., HEOM. & HISTO)",
+        661: "CLINICAL BIO-CHEMISTRY",
+        662: "MICROBIOLOGY",
+        663: "FUNDAMENTAL OF NURSING II",
+        664: "COMMUNITY HEALTH NURSING – II",
+        665: "MATERNITY & CHILD HEALTH NURSING - II",
+        666: "RADIATION PHYSICS",
+        667: "RADIOGRAPHY-I (GENERAL)",
+        668: "RADIOGRAPHY-II (SPECIAL)",
+        675: "ADVANCE FOOD PREPARATION",
+        676: "MEAL PLANNING & SERVICE",
+        677: "ESTABLISHMENT & MANAGEMENT OF FOOD SERVICE UNIT",
+        684: "TEXTILE SCIENCE",
+        685: "DESIGNING & PATTERN MAKING",
+        686: "CLOTHING CONSTRUCTION",
+        687: "BASIC DESIGN",
+        688: "DYEING & PRINTING",
+        690: "FOOD PREPARATION – II",
+        691: "ACCOMMODATION SERVICE",
+        692: "FOOD & BEVERAGES SERVICES – II",
+        693: "INDIA-TOURIST DESTINATION",
+        694: "TRAVEL TRADE MANAGEMENT",
+        695: "TOUR MANAGEMENT & MANPOWER PLANNING",
+        696: "FOOD SCIENCE & HYGIENE",
+        697: "BAKERY SCIENCE",
+        698: "CONFECTIONERY",
+        699: "I T SYSTEMS",
+        700: "BUSINESS DATA PROCESSING",
+        701: "DTP CAD & MULTIMEDIA",
+        702: "LIBRARY ADMINISTRATION & MANAGEMENT",
+        703: "CLASSIFICATION & CATALOGUING",
+        704: "REFERENCE SERVICES",
+        705: "PRINCIPLE & PRACTICE OF LIFE INSURANCE",
+        706: "COMPUTER & LIFE INSURANCE ADMINISTRATION",
+        712: "TRANSPORTATION SYSTEM & MANAGEMENT",
+        716: "POULTRY NUTRITION & PHYSIOLOGY",
+        717: "POULTRY PRODUCTS TECHNOLOGY",
+        718: "POULTRY DISEASES & THEIR CONTROL",
+        723: "INTRODUCTION TO FINANCIAL MARKETS-2-XII",
+        724: "BUSINESS PROCESS OUTSOURCING SKILLS-XII",
+        728: "HEALTH EDUCATION & PUBLIC RELATIONS – XII",
+        729: "BASIC CONCEPTS OF HEALTH DISEASE & MEDICAL",
+        730: "FIRST AID & EMERGENCY MEDICAL CARE-XII",
+        731: "CHILD HEALTH NURSING",
+        732: "MIDWIFERY",
+        733: "HEALTH CENTRE MANAGEMENT",
+        734: "FOOD PRODUCTION – III",
+        735: "FOOD PRODUCTIO -IV",
+        736: "FOOD SERVICE – II",
+        737: "FOOD & BEVERAGE:COST AND CONTROL",
+        738: "UNDERSTANDING THE EVOLUTION AND FORMS OF MASS",
+        739: "THE CREATIVE & COMMERCIAL PROCESS IN MASS MEDIA – II",
+        740: "GEOSPATIAL TECHNOLOGY - II"
     };
 });
 define("Student", ["require", "exports", "Constant"], function (require, exports, Constant_1) {
@@ -120,7 +308,7 @@ define("utility", ["require", "exports", "Constant"], function (require, exports
     }
     exports.getGradeArr = getGradeArr;
 });
-define("Subject", ["require", "exports"], function (require, exports) {
+define("Subject", ["require", "exports", "Constant"], function (require, exports, Constant_3) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Subject = (function () {
@@ -133,7 +321,9 @@ define("Subject", ["require", "exports"], function (require, exports) {
             this.r60to74 = 0;
             this.r75to89 = 0;
             this.r90to100 = 0;
+            this.gradeObj = {};
             this.code = code;
+            this.name = Constant_3.SubjectNameConstant[code];
         }
         Subject.prototype.getCode = function () {
             return this.code;
@@ -144,6 +334,14 @@ define("Subject", ["require", "exports"], function (require, exports) {
         Subject.prototype.incrementTotalPassed = function (grade) {
             if (!grade.match(/E|F/)) {
                 ++this.totalPassed;
+            }
+        };
+        Subject.prototype.incrementGradeCount = function (grade) {
+            if (this.gradeObj[grade]) {
+                ++this.gradeObj[grade];
+            }
+            else {
+                this.gradeObj[grade] = 0;
             }
         };
         Subject.prototype.incrementMarkRange = function (marks) {
@@ -243,39 +441,9 @@ define("app", ["require", "exports", "utility", "Collection"], function (require
                 subject.incrementTotalAppeared();
                 subject.incrementTotalPassed(gradeObj.grade);
                 subject.incrementMarkRange(gradeObj.marks);
+                subject.incrementGradeCount(gradeObj.grade);
             }
         });
     }
-});
-define("enum", ["require", "exports"], function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var Result;
-    (function (Result) {
-        Result[Result["PASS"] = 0] = "PASS";
-        Result[Result["COMP"] = 1] = "COMP";
-        Result[Result["FAIL"] = 2] = "FAIL";
-        Result[Result["ABST"] = 3] = "ABST";
-    })(Result = exports.Result || (exports.Result = {}));
-    var Grades;
-    (function (Grades) {
-        Grades[Grades["A"] = 0] = "A";
-        Grades[Grades["A1"] = 1] = "A1";
-        Grades[Grades["A2"] = 2] = "A2";
-        Grades[Grades["B"] = 3] = "B";
-        Grades[Grades["B1"] = 4] = "B1";
-        Grades[Grades["B2"] = 5] = "B2";
-        Grades[Grades["C"] = 6] = "C";
-        Grades[Grades["C1"] = 7] = "C1";
-        Grades[Grades["C2"] = 8] = "C2";
-        Grades[Grades["D"] = 9] = "D";
-        Grades[Grades["D1"] = 10] = "D1";
-        Grades[Grades["D2"] = 11] = "D2";
-        Grades[Grades["E"] = 12] = "E";
-        Grades[Grades["E1"] = 13] = "E1";
-        Grades[Grades["E2"] = 14] = "E2";
-        Grades[Grades["F"] = 15] = "F";
-        Grades[Grades["NA"] = 16] = "NA";
-    })(Grades = exports.Grades || (exports.Grades = {}));
 });
 //# sourceMappingURL=tsc.js.map

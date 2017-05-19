@@ -65,7 +65,7 @@ function extractSubjectModel(gradeArr: Array < Grade > ) {
             subject.incrementTotalAppeared();
             subject.incrementTotalPassed(gradeObj.grade);
             subject.incrementMarkRange(gradeObj.marks);
-            // subject.incrementGradeCount(gradeObj.grade);
+            subject.incrementGradeCount(gradeObj.grade);
         }
     });
 }
