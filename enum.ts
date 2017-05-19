@@ -1,11 +1,3 @@
-// Result enum
-export enum Result {
-    PASS,
-    COMP,
-    FAIL,
-    ABST
-}
-
 // Grades enum
 export enum Grades {
     A,

@@ -1,17 +1,12 @@
 import {
-    Collection
-} from 'Collection';
-
-import {
     Constant
-} from 'Constant'
-
-let collection = Collection.getInstance();
+} from 'Constant';
 
 export interface Grade {
-    sub: number,
-        grade: string,
-        marks: number
+    code: number;
+    marks: number;
+    grade: string;
+    isAbst: boolean;
 }
 
 /**
@@ -30,7 +25,6 @@ export class Student {
      */
     constructor(roll: number) {
         this.roll = roll;
-        collection.studentCollection.push(this);
     }
 
     setName(name: string) {
@@ -51,6 +45,14 @@ export class Student {
 
     setGradeArr(gradeArr: Array < Grade > ) {
         this.gradeArr = gradeArr;
+    }
+
+    getGradeArr() {
+        return this.gradeArr;
+    }
+
+    getRoll() {
+        return this.roll;
     }
 
     isAbst() {

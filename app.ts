@@ -1,10 +1,19 @@
 import utility = require('./utility');
+
 import {
     Collection
 } from 'Collection';
+
 import {
+    Subject
+} from 'Subject';
+
+import {
+    Grade,
     Student
 } from 'Student';
+
+let collection = Collection.getInstance();
 
 /****** Variables ******/
 
@@ -30,12 +39,33 @@ $elAnalyze.addEventListener('click', function () {
  * @param resultStrArr Result str arr
  */
 function extractDataModels(resultStrArr: any) {
-    /**
-     * Creates a student object
-     */
-    let student = new Student(utility.getRoll(resultStrArr));
 
-    student.setName(utility.getName(resultStrArr));
-    student.setResult(utility.getResult(resultStrArr));
-    student.setGradeArr(utility.getGradeArr(resultStrArr, student))
+    resultStrArr.forEach((resultStr: string) => {
+        /**
+         * Creates a student object
+         */
+        let student = collection.getStudent(utility.getRoll(resultStr));
+
+        student.setName(utility.getName(resultStr));
+        student.setResult(utility.getResult(resultStr));
+        student.setGradeArr(utility.getGradeArr(resultStr, student));
+
+        extractSubjectModel(student.getGradeArr());
+    });
+}
+
+/**
+ * Extracts the subject model from a student's grade array
+ */
+function extractSubjectModel(gradeArr: Array < Grade > ) {
+    let subject: Subject;
+    gradeArr.forEach(gradeObj => {
+        subject = collection.getSubject(gradeObj.code);
+        if (!gradeObj.isAbst) {
+            subject.incrementTotalAppeared();
+            subject.incrementTotalPassed(gradeObj.grade);
+            subject.incrementMarkRange(gradeObj.marks);
+            // subject.incrementGradeCount(gradeObj.grade);
+        }
+    });
 }

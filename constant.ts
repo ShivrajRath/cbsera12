@@ -3,5 +3,6 @@ export const Constant = {
     COMP: 'COMP',
     FAIL: 'FAIL',
     ABST: 'ABST',
-    NA: 'NA'
-}
+    NA: 'NA',
+    PASS_MARK: 32
+};
