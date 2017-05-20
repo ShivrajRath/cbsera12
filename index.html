@@ -23,13 +23,36 @@
   </h3>
 
   <p>
-    Paste the text content of the result text file in the box below. Click on <code><strong>ANALYZE</strong></code> button to do the result analysis and download the result to excel file.
+    Paste the text content of the result text file in the box below. Click on <code><strong>ANALYZE</strong></code> button
+    to do the result analysis and download the result to excel file.
   </p>
 
   <p>
     <textarea id="text-input"></textarea>
     <button type="button" id="btn-analyze">ANALYZE AND EXPORT</button>
   </p>
+
+  <div id="resultTables" class="hide">
+
+    <div id="schoolTable">
+      <h3>School result</h3>
+      <hr>
+      <table></table>
+    </div>
+
+    <div id="subjectTable">
+      <h3>Subject wise result</h3>
+      <hr>
+      <table></table>
+    </div>
+
+    <div id="studentTable">
+      <h3>Student wise result</h3>
+      <hr>
+      <table></table>
+    </div>
+
+  </div>
 
   <hr>
   <h5>

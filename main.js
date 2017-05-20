@@ -1,5 +1,5 @@
 requirejs.config({
-    baseUrl: 'built',
+    baseUrl: 'dist',
     deps: ['tsc'],
     callback: function () {
         require(['app']);

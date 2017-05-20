@@ -13,6 +13,10 @@ import {
     Student
 } from 'Student';
 
+import {
+    Constant
+} from 'Constant';
+
 let collection = Collection.getInstance();
 
 /****** Variables ******/
@@ -29,6 +33,7 @@ $elAnalyze.addEventListener('click', function () {
         let textAreaContent = utility.remNewLine($textInput.value);
         let resultStrArr = utility.resultStringSplit(textAreaContent);
         extractDataModels(resultStrArr);
+        displayTables();
     } catch (ex) {
         alert('Something went wrong. Please retry');
         console.log(ex.message);
@@ -69,4 +74,84 @@ function extractSubjectModel(gradeArr: Array < Grade > ) {
             subject.incrementGradeCount(gradeObj.grade);
         }
     });
+}
+
+/**
+ * Displays tables
+ */
+function displayTables() {
+    document.getElementById('resultTables').classList.remove('hide');
+    displaySubjectTable();
+    displayStudentTable();
+}
+
+/**
+ * Displays subject table
+ */
+function displaySubjectTable() {
+    let table = '<tbody><tr>';
+    ['Code', 'Subject', 'Appeared', 'Passed']
+    .concat(Constant.GRADES)
+        .concat(['0-33', '33-44', '45-59', '60-74', '75-89', '90-100'])
+        .forEach(el => {
+            table += `<th> ${el} </th>`;
+        });
+    table += '</tr>';
+
+    collection.subjectCollection.forEach(subject => {
+        table += '<tr>' +
+            `<td> ${subject.code} </td>` +
+            `<td> ${subject.name} </td>` +
+            `<td> ${subject.totalAppeared} </td>` +
+            `<td> ${subject.totalPassed} </td>`;
+
+        Constant.GRADES.forEach(grade => {
+            table += `<td> ${subject.gradeObj[grade] || '0'} </td>`;
+        });
+
+        table += `<td> ${subject.r0to32} </td>` +
+            `<td> ${subject.r33to44} </td>` +
+            `<td> ${subject.r45to59} </td>` +
+            `<td> ${subject.r60to74} </td>` +
+            `<td> ${subject.r75to89} </td>` +
+            `<td> ${subject.r90to100} </td>` +
+            '</tr>';
+    });
+
+    table += '</tbody>';
+
+    utility.setTable('subjectTable', table);
+}
+
+/**
+ * Displays student table
+ */
+function displayStudentTable() {
+    let table = '<tbody><tr>';
+
+    ['Roll', 'Name']
+    .concat(collection.getAllSubjectCodes().join(' Grade ').split(' '))
+        .concat(['Grade', 'Total', '%', 'Result'])
+        .forEach(el => {
+            table += `<th> ${el} </th>`;
+        });
+
+    utility.sortStudentByPercentage(collection.studentCollection).forEach(student => {
+        table += '<tr>' +
+            `<td> ${student.getRoll()} </td>` +
+            `<td> ${student.getName()} </td>`;
+
+        collection.getAllSubjectCodes().forEach(code => {
+            table += `<td> ${student.getMarks(code)} </td>` +
+                `<td> ${student.getGrade(code)} </td>`;
+        });
+
+        table += `<td> ${student.getTotalMarks()} </td>` +
+            `<td> ${student.getPercentage() || ' - '} </td>` +
+            `<td> ${student.getResult()} </td>` +
+            '</tr>';
+    });
+
+    table += '</tbody>';
+    utility.setTable('studentTable', table);
 }

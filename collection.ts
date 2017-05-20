@@ -59,6 +59,13 @@ export class Collection {
     }
 
     /**
+     * Returns all the subject codes
+     */
+    getAllSubjectCodes() {
+        return this.subjectCollection.map(subject => subject.getCode());
+    }
+
+    /**
      * Clears the collections
      */
     clear() {

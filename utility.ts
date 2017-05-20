@@ -34,6 +34,22 @@ export function remExtraSpaces(str: string): string {
 }
 
 /**
+ * Gets a table element inside an ID
+ */
+export function setTable(id: string, html: string) {
+    document.getElementById(id).getElementsByTagName('table')[0].innerHTML = html;
+}
+
+/**
+ * sort Student array by percentage
+ */
+export function sortStudentByPercentage(studentArr: Array < Student > ) {
+    return studentArr.sort((studentA, studentB) => {
+        return studentB.getPercentage() - studentA.getPercentage();
+    });
+}
+
+/**
  * Splits the content into array of result string
  * @param str Input text content
  */
@@ -93,7 +109,7 @@ export function getGradeArr(str: string, student: Student): Array < Grade > {
             gradeArr.push({
                 code: parseInt(code, 10),
                 marks: 0,
-                grade: Constant.NA,
+                grade: Constant.ABST,
                 isAbst: true
             });
         }

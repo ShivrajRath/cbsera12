@@ -16,7 +16,6 @@ export class Student {
     name: string;
     roll: number;
     result: string;
-    private percentage: number;
     gradeArr: Array < Grade > = [];
 
     /**
@@ -53,6 +52,33 @@ export class Student {
 
     getRoll() {
         return this.roll;
+    }
+
+    getGradeObj(code: number) {
+        return this.gradeArr.filter(gradeObj => gradeObj.code === code)[0] || {
+            marks: '-',
+            grade: '-'
+        };
+    }
+
+    getMarks(code: number) {
+        return this.getGradeObj(code).marks;
+    }
+
+    getGrade(code: number): string {
+        return this.getGradeObj(code).grade;
+    }
+
+    getPercentage(): number {
+        return parseFloat(((this.getTotalMarks() / (this.gradeArr.filter(gradeObj => !gradeObj.isAbst).length * 100)) * 100).toFixed(2)) || 0;
+    }
+
+    getTotalMarks() {
+        let totalMarks = 0;
+        this.gradeArr.forEach(gradeObj => {
+            totalMarks += gradeObj.marks;
+        });
+        return totalMarks;
     }
 
     isAbst() {
