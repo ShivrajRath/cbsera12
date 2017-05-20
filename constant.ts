@@ -5,6 +5,7 @@ export const Constant = {
     ABST: 'ABST',
     NA: 'NA',
     PASS_MARK: 32,
+    maxPoint: 8,
     GRADES: ['A', 'A1', 'A2', 'B', 'B1', 'B2', 'C', 'C1', 'C2', 'D', 'D1', 'D2', 'E']
 };
 

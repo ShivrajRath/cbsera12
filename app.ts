@@ -81,8 +81,42 @@ function extractSubjectModel(gradeArr: Array < Grade > ) {
  */
 function displayTables() {
     document.getElementById('resultTables').classList.remove('hide');
+    displaySchoolTable();
     displaySubjectTable();
     displayStudentTable();
+
+    // Scroll to the result location
+    location.href = '#';
+    location.href = '#resultTables';
+}
+
+/**
+ * Displays school's result
+ */
+function displaySchoolTable() {
+    let table = '<tbody><tr>';
+    ['Appeared', 'Passed', 'Fail and Comp', 'Abst', 'Pass %']
+    .concat(['0-32.9', '33-44.9', '45-59.9', '60-74.9', '75-89.9', '90-100'])
+        .concat(Constant.GRADES)
+        .concat(['Grade count', 'NxW', 'PI', 'Mean'])
+        .forEach(el => {
+            table += `<th> ${el} </th>`;
+        });
+    table += '</tr>' +
+        `<td> ${collection.getTotalAppearedStudents()} </td>` +
+        `<td> ${collection.getTotalPassedStudents()} </td>` +
+        `<td> ${collection.getTotalFailAndCompStudents()} </td>` +
+        `<td> ${collection.getTotalAbsentStudents()} </td>` +
+        `<td> ${collection.getPassPercentage()} </td>` +
+        `<td> ${collection.getPercentageRangeStudentCount(0, 32.9)} </td>` +
+        `<td> ${collection.getPercentageRangeStudentCount(33, 44.9)} </td>` +
+        `<td> ${collection.getPercentageRangeStudentCount(45, 59.9)} </td>` +
+        `<td> ${collection.getPercentageRangeStudentCount(60, 74.9)} </td>` +
+        `<td> ${collection.getPercentageRangeStudentCount(75, 89.9)} </td>` +
+        `<td> ${collection.getPercentageRangeStudentCount(90, 100)} </td>` +
+        '</tbody>';
+
+    utility.setTable('schoolTable', table);
 }
 
 /**
@@ -90,20 +124,22 @@ function displayTables() {
  */
 function displaySubjectTable() {
     let table = '<tbody><tr>';
-    ['Code', 'Subject', 'Appeared', 'Passed']
+    ['Code', 'Subject', 'Appeared', 'Passed', '%']
     .concat(Constant.GRADES)
         .concat(['0-33', '33-44', '45-59', '60-74', '75-89', '90-100'])
+        .concat(['NxW', 'PI', 'Mean'])
         .forEach(el => {
             table += `<th> ${el} </th>`;
         });
     table += '</tr>';
 
-    collection.subjectCollection.forEach(subject => {
+    utility.sortSubjectByPassPercentage(collection.subjectCollection).forEach(subject => {
         table += '<tr>' +
             `<td> ${subject.code} </td>` +
             `<td> ${subject.name} </td>` +
             `<td> ${subject.totalAppeared} </td>` +
-            `<td> ${subject.totalPassed} </td>`;
+            `<td> ${subject.totalPassed} </td>` +
+            `<td> ${subject.getPassPercentage()} </td>`;
 
         Constant.GRADES.forEach(grade => {
             table += `<td> ${subject.gradeObj[grade] || '0'} </td>`;
@@ -115,6 +151,9 @@ function displaySubjectTable() {
             `<td> ${subject.r60to74} </td>` +
             `<td> ${subject.r75to89} </td>` +
             `<td> ${subject.r90to100} </td>` +
+            `<td> ${subject.getNxW()} </td>` +
+            `<td> ${subject.getPI()} </td>` +
+            `<td> ${subject.getMean()} </td>` +
             '</tr>';
     });
 

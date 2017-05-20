@@ -10,6 +10,7 @@ export class Subject {
     code: number;
     totalAppeared: number = 0;
     totalPassed: number = 0;
+    private totalMarks: number = 0;
     r0to32: number = 0;
     r33to44: number = 0;
     r45to59: number = 0;
@@ -66,6 +67,7 @@ export class Subject {
      * Sets the marks into proper range
      */
     incrementMarkRange(marks: number) {
+        this.totalMarks += marks;
         if (marks > 89) {
             ++this.r90to100;
         } else if (marks > 74) {
@@ -79,5 +81,30 @@ export class Subject {
         } else {
             ++this.r0to32;
         }
+    }
+
+    getPassPercentage() {
+        return parseFloat(((this.totalPassed / this.totalAppeared) * 100).toFixed(2)) || 0;
+    }
+
+    getGradeCount(grade: string) {
+        return this.gradeObj[grade] || 0;
+    }
+
+    getNxW() {
+        return this.getGradeCount('A1') * 8 + this.getGradeCount('A2') * 7 +
+            this.getGradeCount('B1') * 6 + this.getGradeCount('B2') * 5 +
+            this.getGradeCount('C1') * 4 + this.getGradeCount('C2') * 3 +
+            this.getGradeCount('D1') * 2 + this.getGradeCount('D2') * 1 +
+            this.getGradeCount('E') * 0;
+    }
+
+    getPI() {
+        return parseFloat(((this.getNxW() * 100) / (this.totalAppeared * Constant.maxPoint))
+            .toFixed(2));
+    }
+
+    getMean() {
+        return parseFloat((this.totalMarks / this.totalAppeared).toFixed(2));
     }
 }

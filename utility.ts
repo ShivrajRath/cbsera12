@@ -8,6 +8,10 @@ import {
 } from 'Student';
 
 import {
+    Subject
+} from 'Subject';
+
+import {
     Constant
 } from 'Constant';
 
@@ -46,6 +50,15 @@ export function setTable(id: string, html: string) {
 export function sortStudentByPercentage(studentArr: Array < Student > ) {
     return studentArr.sort((studentA, studentB) => {
         return studentB.getPercentage() - studentA.getPercentage();
+    });
+}
+
+/**
+ * sort Subject array by pass percentage
+ */
+export function sortSubjectByPassPercentage(subjectArr: Array < Subject > ) {
+    return subjectArr.sort((subjectA, subjectB) => {
+        return subjectB.getPassPercentage() - subjectA.getPassPercentage();
     });
 }
 

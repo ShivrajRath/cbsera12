@@ -65,6 +65,32 @@ export class Collection {
         return this.subjectCollection.map(subject => subject.getCode());
     }
 
+    getTotalAppearedStudents() {
+        return this.studentCollection.filter(student => student.result !== 'ABST').length;
+    }
+
+    getTotalPassedStudents() {
+        return this.studentCollection.filter(student => student.result === 'PASS').length;
+    }
+
+    getTotalFailAndCompStudents() {
+        return this.studentCollection.filter(student => student.result.match(/FAIL|COMP/gi)).length;
+    }
+
+    getTotalAbsentStudents() {
+        return this.studentCollection.filter(student => student.result === 'ABST').length;
+    }
+
+    getPassPercentage() {
+        return parseFloat(((this.getTotalPassedStudents() / this.getTotalAppearedStudents()) * 100).toFixed(2));
+    }
+
+    getPercentageRangeStudentCount(min: number, max: number) {
+        return this.studentCollection.filter(student => {
+            return student.getPercentage() >= min && student.getPercentage() <= max;
+        }).length;
+    }
+
     /**
      * Clears the collections
      */

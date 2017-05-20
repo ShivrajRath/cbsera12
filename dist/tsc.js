@@ -8,6 +8,7 @@ define("Constant", ["require", "exports"], function (require, exports) {
         ABST: 'ABST',
         NA: 'NA',
         PASS_MARK: 32,
+        maxPoint: 8,
         GRADES: ['A', 'A1', 'A2', 'B', 'B1', 'B2', 'C', 'C1', 'C2', 'D', 'D1', 'D2', 'E']
     };
     exports.SubjectNameConstant = {
@@ -257,7 +258,89 @@ define("Student", ["require", "exports", "Constant"], function (require, exports
     }());
     exports.Student = Student;
 });
-define("utility", ["require", "exports", "Constant"], function (require, exports, Constant_2) {
+define("Subject", ["require", "exports", "Constant"], function (require, exports, Constant_2) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var Subject = (function () {
+        function Subject(code) {
+            this.totalAppeared = 0;
+            this.totalPassed = 0;
+            this.totalMarks = 0;
+            this.r0to32 = 0;
+            this.r33to44 = 0;
+            this.r45to59 = 0;
+            this.r60to74 = 0;
+            this.r75to89 = 0;
+            this.r90to100 = 0;
+            this.gradeObj = {};
+            this.code = code;
+            this.name = Constant_2.SubjectNameConstant[code];
+        }
+        Subject.prototype.getCode = function () {
+            return this.code;
+        };
+        Subject.prototype.incrementTotalAppeared = function () {
+            ++this.totalAppeared;
+        };
+        Subject.prototype.incrementTotalPassed = function (grade) {
+            if (!grade.match(/E|F/)) {
+                ++this.totalPassed;
+            }
+        };
+        Subject.prototype.incrementGradeCount = function (grade) {
+            if (this.gradeObj[grade]) {
+                ++this.gradeObj[grade];
+            }
+            else {
+                this.gradeObj[grade] = 1;
+            }
+        };
+        Subject.prototype.incrementMarkRange = function (marks) {
+            this.totalMarks += marks;
+            if (marks > 89) {
+                ++this.r90to100;
+            }
+            else if (marks > 74) {
+                ++this.r75to89;
+            }
+            else if (marks > 59) {
+                ++this.r60to74;
+            }
+            else if (marks > 44) {
+                ++this.r45to59;
+            }
+            else if (marks > 32) {
+                ++this.r33to44;
+            }
+            else {
+                ++this.r0to32;
+            }
+        };
+        Subject.prototype.getPassPercentage = function () {
+            return parseFloat(((this.totalPassed / this.totalAppeared) * 100).toFixed(2)) || 0;
+        };
+        Subject.prototype.getGradeCount = function (grade) {
+            return this.gradeObj[grade] || 0;
+        };
+        Subject.prototype.getNxW = function () {
+            return this.getGradeCount('A1') * 8 + this.getGradeCount('A2') * 7 +
+                this.getGradeCount('B1') * 6 + this.getGradeCount('B2') * 5 +
+                this.getGradeCount('C1') * 4 + this.getGradeCount('C2') * 3 +
+                this.getGradeCount('D1') * 2 + this.getGradeCount('D2') * 1 +
+                this.getGradeCount('E') * 0;
+        };
+        Subject.prototype.getPI = function () {
+            return parseFloat(((this.getNxW() * 100) / (this.totalAppeared * Constant_2.Constant.maxPoint))
+                .toFixed(2));
+        };
+        Subject.prototype.getMean = function () {
+            return parseFloat((this.totalMarks / this.totalAppeared).toFixed(2));
+        };
+        return Subject;
+    }());
+    exports.Subject = Subject;
+});
+define("utility", ["require", "exports", "Constant"], function (require, exports, Constant_3) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function remWhiteSpace(str) {
@@ -282,6 +365,12 @@ define("utility", ["require", "exports", "Constant"], function (require, exports
         });
     }
     exports.sortStudentByPercentage = sortStudentByPercentage;
+    function sortSubjectByPassPercentage(subjectArr) {
+        return subjectArr.sort(function (subjectA, subjectB) {
+            return subjectB.getPassPercentage() - subjectA.getPassPercentage();
+        });
+    }
+    exports.sortSubjectByPassPercentage = sortSubjectByPassPercentage;
     function resultStringSplit(str) {
         return str.match(/\d{6,9}.*?(PASS|COMP|FAIL|ABST)/gi);
     }
@@ -307,7 +396,7 @@ define("utility", ["require", "exports", "Constant"], function (require, exports
                 gradeArr.push({
                     code: parseInt(code, 10),
                     marks: 0,
-                    grade: Constant_2.Constant.ABST,
+                    grade: Constant_3.Constant.ABST,
                     isAbst: true
                 });
             }
@@ -340,66 +429,6 @@ define("utility", ["require", "exports", "Constant"], function (require, exports
         return gradeArr;
     }
     exports.getGradeArr = getGradeArr;
-});
-define("Subject", ["require", "exports", "Constant"], function (require, exports, Constant_3) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var Subject = (function () {
-        function Subject(code) {
-            this.totalAppeared = 0;
-            this.totalPassed = 0;
-            this.r0to32 = 0;
-            this.r33to44 = 0;
-            this.r45to59 = 0;
-            this.r60to74 = 0;
-            this.r75to89 = 0;
-            this.r90to100 = 0;
-            this.gradeObj = {};
-            this.code = code;
-            this.name = Constant_3.SubjectNameConstant[code];
-        }
-        Subject.prototype.getCode = function () {
-            return this.code;
-        };
-        Subject.prototype.incrementTotalAppeared = function () {
-            ++this.totalAppeared;
-        };
-        Subject.prototype.incrementTotalPassed = function (grade) {
-            if (!grade.match(/E|F/)) {
-                ++this.totalPassed;
-            }
-        };
-        Subject.prototype.incrementGradeCount = function (grade) {
-            if (this.gradeObj[grade]) {
-                ++this.gradeObj[grade];
-            }
-            else {
-                this.gradeObj[grade] = 1;
-            }
-        };
-        Subject.prototype.incrementMarkRange = function (marks) {
-            if (marks > 89) {
-                ++this.r90to100;
-            }
-            else if (marks > 74) {
-                ++this.r75to89;
-            }
-            else if (marks > 59) {
-                ++this.r60to74;
-            }
-            else if (marks > 44) {
-                ++this.r45to59;
-            }
-            else if (marks > 32) {
-                ++this.r33to44;
-            }
-            else {
-                ++this.r0to32;
-            }
-        };
-        return Subject;
-    }());
-    exports.Subject = Subject;
 });
 define("Collection", ["require", "exports", "Student", "Subject"], function (require, exports, Student_1, Subject_1) {
     "use strict";
@@ -434,6 +463,26 @@ define("Collection", ["require", "exports", "Student", "Subject"], function (req
         };
         Collection.prototype.getAllSubjectCodes = function () {
             return this.subjectCollection.map(function (subject) { return subject.getCode(); });
+        };
+        Collection.prototype.getTotalAppearedStudents = function () {
+            return this.studentCollection.filter(function (student) { return student.result !== 'ABST'; }).length;
+        };
+        Collection.prototype.getTotalPassedStudents = function () {
+            return this.studentCollection.filter(function (student) { return student.result === 'PASS'; }).length;
+        };
+        Collection.prototype.getTotalFailAndCompStudents = function () {
+            return this.studentCollection.filter(function (student) { return student.result.match(/FAIL|COMP/gi); }).length;
+        };
+        Collection.prototype.getTotalAbsentStudents = function () {
+            return this.studentCollection.filter(function (student) { return student.result === 'ABST'; }).length;
+        };
+        Collection.prototype.getPassPercentage = function () {
+            return parseFloat(((this.getTotalPassedStudents() / this.getTotalAppearedStudents()) * 100).toFixed(2));
+        };
+        Collection.prototype.getPercentageRangeStudentCount = function (min, max) {
+            return this.studentCollection.filter(function (student) {
+                return student.getPercentage() >= min && student.getPercentage() <= max;
+            }).length;
         };
         Collection.prototype.clear = function () {
             this.subjectCollection = [];
@@ -485,24 +534,53 @@ define("app", ["require", "exports", "utility", "Collection", "Constant"], funct
     }
     function displayTables() {
         document.getElementById('resultTables').classList.remove('hide');
+        displaySchoolTable();
         displaySubjectTable();
         displayStudentTable();
+        location.href = '#';
+        location.href = '#resultTables';
+    }
+    function displaySchoolTable() {
+        var table = '<tbody><tr>';
+        ['Appeared', 'Passed', 'Fail and Comp', 'Abst', 'Pass %']
+            .concat(['0-32.9', '33-44.9', '45-59.9', '60-74.9', '75-89.9', '90-100'])
+            .concat(Constant_4.Constant.GRADES)
+            .concat(['Grade count', 'NxW', 'PI', 'Mean'])
+            .forEach(function (el) {
+            table += "<th> " + el + " </th>";
+        });
+        table += '</tr>' +
+            ("<td> " + collection.getTotalAppearedStudents() + " </td>") +
+            ("<td> " + collection.getTotalPassedStudents() + " </td>") +
+            ("<td> " + collection.getTotalFailAndCompStudents() + " </td>") +
+            ("<td> " + collection.getTotalAbsentStudents() + " </td>") +
+            ("<td> " + collection.getPassPercentage() + " </td>") +
+            ("<td> " + collection.getPercentageRangeStudentCount(0, 32.9) + " </td>") +
+            ("<td> " + collection.getPercentageRangeStudentCount(33, 44.9) + " </td>") +
+            ("<td> " + collection.getPercentageRangeStudentCount(45, 59.9) + " </td>") +
+            ("<td> " + collection.getPercentageRangeStudentCount(60, 74.9) + " </td>") +
+            ("<td> " + collection.getPercentageRangeStudentCount(75, 89.9) + " </td>") +
+            ("<td> " + collection.getPercentageRangeStudentCount(90, 100) + " </td>") +
+            '</tbody>';
+        utility.setTable('schoolTable', table);
     }
     function displaySubjectTable() {
         var table = '<tbody><tr>';
-        ['Code', 'Subject', 'Appeared', 'Passed']
+        ['Code', 'Subject', 'Appeared', 'Passed', '%']
             .concat(Constant_4.Constant.GRADES)
             .concat(['0-33', '33-44', '45-59', '60-74', '75-89', '90-100'])
+            .concat(['NxW', 'PI', 'Mean'])
             .forEach(function (el) {
             table += "<th> " + el + " </th>";
         });
         table += '</tr>';
-        collection.subjectCollection.forEach(function (subject) {
+        utility.sortSubjectByPassPercentage(collection.subjectCollection).forEach(function (subject) {
             table += '<tr>' +
                 ("<td> " + subject.code + " </td>") +
                 ("<td> " + subject.name + " </td>") +
                 ("<td> " + subject.totalAppeared + " </td>") +
-                ("<td> " + subject.totalPassed + " </td>");
+                ("<td> " + subject.totalPassed + " </td>") +
+                ("<td> " + subject.getPassPercentage() + " </td>");
             Constant_4.Constant.GRADES.forEach(function (grade) {
                 table += "<td> " + (subject.gradeObj[grade] || '0') + " </td>";
             });
@@ -512,6 +590,9 @@ define("app", ["require", "exports", "utility", "Collection", "Constant"], funct
                 ("<td> " + subject.r60to74 + " </td>") +
                 ("<td> " + subject.r75to89 + " </td>") +
                 ("<td> " + subject.r90to100 + " </td>") +
+                ("<td> " + subject.getNxW() + " </td>") +
+                ("<td> " + subject.getPI() + " </td>") +
+                ("<td> " + subject.getMean() + " </td>") +
                 '</tr>';
         });
         table += '</tbody>';
