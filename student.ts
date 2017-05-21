@@ -74,11 +74,16 @@ export class Student {
     }
 
     getTotalMarks() {
-        let totalMarks = 0;
-        this.gradeArr.forEach(gradeObj => {
-            totalMarks += gradeObj.marks;
-        });
-        return totalMarks;
+        // let totalMarks = 0;
+        // this.gradeArr.forEach(gradeObj => {
+        //     totalMarks += gradeObj.marks;
+        // });
+        // return totalMarks;
+
+        return this.gradeArr.reduce((acc, gradeObj) => {
+            return acc + gradeObj.marks;
+        }, 0);
+
     }
 
     isAbst() {

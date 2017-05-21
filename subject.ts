@@ -104,6 +104,10 @@ export class Subject {
             .toFixed(2));
     }
 
+    getTotalMarks() {
+        return this.totalMarks;
+    }
+
     getMean() {
         return parseFloat((this.totalMarks / this.totalAppeared).toFixed(2));
     }

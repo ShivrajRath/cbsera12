@@ -113,7 +113,15 @@ function displaySchoolTable() {
         `<td> ${collection.getPercentageRangeStudentCount(45, 59.9)} </td>` +
         `<td> ${collection.getPercentageRangeStudentCount(60, 74.9)} </td>` +
         `<td> ${collection.getPercentageRangeStudentCount(75, 89.9)} </td>` +
-        `<td> ${collection.getPercentageRangeStudentCount(90, 100)} </td>` +
+        `<td> ${collection.getPercentageRangeStudentCount(90, 100)} </td>`;
+
+    collection.getTotalGradesArray().forEach(val => {
+        table += `<th> ${val} </th>`;
+    });
+
+    table += `<td> ${collection.getTotalNxW()} </td>` +
+        `<td> ${collection.getTotalPI()} </td>` +
+        `<td> ${collection.getTotalMean()} </td>` +
         '</tbody>';
 
     utility.setTable('schoolTable', table);

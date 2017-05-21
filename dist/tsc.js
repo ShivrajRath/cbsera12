@@ -9,7 +9,7 @@ define("Constant", ["require", "exports"], function (require, exports) {
         NA: 'NA',
         PASS_MARK: 32,
         maxPoint: 8,
-        GRADES: ['A', 'A1', 'A2', 'B', 'B1', 'B2', 'C', 'C1', 'C2', 'D', 'D1', 'D2', 'E']
+        GRADES: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E']
     };
     exports.SubjectNameConstant = {
         101: 'FUNCTIONAL ENGLISH',
@@ -245,11 +245,9 @@ define("Student", ["require", "exports", "Constant"], function (require, exports
             return parseFloat(((this.getTotalMarks() / (this.gradeArr.filter(function (gradeObj) { return !gradeObj.isAbst; }).length * 100)) * 100).toFixed(2)) || 0;
         };
         Student.prototype.getTotalMarks = function () {
-            var totalMarks = 0;
-            this.gradeArr.forEach(function (gradeObj) {
-                totalMarks += gradeObj.marks;
-            });
-            return totalMarks;
+            return this.gradeArr.reduce(function (acc, gradeObj) {
+                return acc + gradeObj.marks;
+            }, 0);
         };
         Student.prototype.isAbst = function () {
             return this.result === Constant_1.Constant.ABST;
@@ -332,6 +330,9 @@ define("Subject", ["require", "exports", "Constant"], function (require, exports
         Subject.prototype.getPI = function () {
             return parseFloat(((this.getNxW() * 100) / (this.totalAppeared * Constant_2.Constant.maxPoint))
                 .toFixed(2));
+        };
+        Subject.prototype.getTotalMarks = function () {
+            return this.totalMarks;
         };
         Subject.prototype.getMean = function () {
             return parseFloat((this.totalMarks / this.totalAppeared).toFixed(2));
@@ -430,7 +431,7 @@ define("utility", ["require", "exports", "Constant"], function (require, exports
     }
     exports.getGradeArr = getGradeArr;
 });
-define("Collection", ["require", "exports", "Student", "Subject"], function (require, exports, Student_1, Subject_1) {
+define("Collection", ["require", "exports", "Student", "Subject", "Constant"], function (require, exports, Student_1, Subject_1, Constant_4) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Collection = (function () {
@@ -484,6 +485,36 @@ define("Collection", ["require", "exports", "Student", "Subject"], function (req
                 return student.getPercentage() >= min && student.getPercentage() <= max;
             }).length;
         };
+        Collection.prototype.getTotalGradesArray = function () {
+            var gradeObj = {};
+            Constant_4.Constant.GRADES.forEach(function (grade) {
+                gradeObj[grade] = 0;
+            });
+            gradeObj.totalMarks = 0;
+            this.subjectCollection.forEach(function (subject) {
+                Object.keys(subject.gradeObj).forEach(function (key) {
+                    gradeObj[key] += subject.gradeObj[key];
+                    gradeObj.totalMarks += subject.gradeObj[key];
+                });
+            });
+            return Object.keys(gradeObj).map(function (key) { return gradeObj[key]; });
+        };
+        Collection.prototype.getTotalNxW = function () {
+            return this.subjectCollection.reduce(function (acc, subject) {
+                return acc + subject.getNxW();
+            }, 0);
+        };
+        Collection.prototype.getTotalMark = function () {
+            return this.subjectCollection.reduce(function (acc, subject) {
+                return acc + subject.getTotalMarks();
+            }, 0);
+        };
+        Collection.prototype.getTotalMean = function () {
+            return parseFloat((this.getTotalMark() / this.getTotalAppearedStudents()).toFixed(2));
+        };
+        Collection.prototype.getTotalPI = function () {
+            return parseFloat(((this.getTotalNxW() * 100) / (this.getTotalAppearedStudents() * 40)).toFixed(2));
+        };
         Collection.prototype.clear = function () {
             this.subjectCollection = [];
             this.studentCollection = [];
@@ -492,7 +523,7 @@ define("Collection", ["require", "exports", "Student", "Subject"], function (req
     }());
     exports.Collection = Collection;
 });
-define("app", ["require", "exports", "utility", "Collection", "Constant"], function (require, exports, utility, Collection_1, Constant_4) {
+define("app", ["require", "exports", "utility", "Collection", "Constant"], function (require, exports, utility, Collection_1, Constant_5) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var collection = Collection_1.Collection.getInstance();
@@ -544,7 +575,7 @@ define("app", ["require", "exports", "utility", "Collection", "Constant"], funct
         var table = '<tbody><tr>';
         ['Appeared', 'Passed', 'Fail and Comp', 'Abst', 'Pass %']
             .concat(['0-32.9', '33-44.9', '45-59.9', '60-74.9', '75-89.9', '90-100'])
-            .concat(Constant_4.Constant.GRADES)
+            .concat(Constant_5.Constant.GRADES)
             .concat(['Grade count', 'NxW', 'PI', 'Mean'])
             .forEach(function (el) {
             table += "<th> " + el + " </th>";
@@ -560,14 +591,20 @@ define("app", ["require", "exports", "utility", "Collection", "Constant"], funct
             ("<td> " + collection.getPercentageRangeStudentCount(45, 59.9) + " </td>") +
             ("<td> " + collection.getPercentageRangeStudentCount(60, 74.9) + " </td>") +
             ("<td> " + collection.getPercentageRangeStudentCount(75, 89.9) + " </td>") +
-            ("<td> " + collection.getPercentageRangeStudentCount(90, 100) + " </td>") +
+            ("<td> " + collection.getPercentageRangeStudentCount(90, 100) + " </td>");
+        collection.getTotalGradesArray().forEach(function (val) {
+            table += "<th> " + val + " </th>";
+        });
+        table += "<td> " + collection.getTotalNxW() + " </td>" +
+            ("<td> " + collection.getTotalPI() + " </td>") +
+            ("<td> " + collection.getTotalMean() + " </td>") +
             '</tbody>';
         utility.setTable('schoolTable', table);
     }
     function displaySubjectTable() {
         var table = '<tbody><tr>';
         ['Code', 'Subject', 'Appeared', 'Passed', '%']
-            .concat(Constant_4.Constant.GRADES)
+            .concat(Constant_5.Constant.GRADES)
             .concat(['0-33', '33-44', '45-59', '60-74', '75-89', '90-100'])
             .concat(['NxW', 'PI', 'Mean'])
             .forEach(function (el) {
@@ -581,7 +618,7 @@ define("app", ["require", "exports", "utility", "Collection", "Constant"], funct
                 ("<td> " + subject.totalAppeared + " </td>") +
                 ("<td> " + subject.totalPassed + " </td>") +
                 ("<td> " + subject.getPassPercentage() + " </td>");
-            Constant_4.Constant.GRADES.forEach(function (grade) {
+            Constant_5.Constant.GRADES.forEach(function (grade) {
                 table += "<td> " + (subject.gradeObj[grade] || '0') + " </td>";
             });
             table += "<td> " + subject.r0to32 + " </td>" +

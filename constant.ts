@@ -6,7 +6,7 @@ export const Constant = {
     NA: 'NA',
     PASS_MARK: 32,
     maxPoint: 8,
-    GRADES: ['A', 'A1', 'A2', 'B', 'B1', 'B2', 'C', 'C1', 'C2', 'D', 'D1', 'D2', 'E']
+    GRADES: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E']
 };
 
 export const SubjectNameConstant = {
