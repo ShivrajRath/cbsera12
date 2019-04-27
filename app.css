@@ -63,6 +63,10 @@ table td {
   border-collapse: collapse;
 }
 
+.center {
+  text-align: center;
+}
+
 table th {
   font-size: .85em;
   letter-spacing: .1em;
