@@ -14,6 +14,7 @@ export const SubjectNameConstant = {
     1: 'ENGLISH ELECTIVE',
     2: 'HINDI ELECTIVE',
     3: 'URDU ELECTIVE',
+    18: 'HINDI',
     104: 'PUNJABI',
     105: 'BENGALI',
     106: 'TAMIL',
@@ -37,6 +38,7 @@ export const SubjectNameConstant = {
     124: 'NEPALI',
     125: 'LIMBOO',
     126: 'LEPCHA',
+    187: 'ENGLISH LANG. & LIT'
     27: 'HISTORY',
     28: 'POLITICAL SCIENCE',
     29: 'GEOGRAPHY',
